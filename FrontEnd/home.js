@@ -1,4 +1,4 @@
-import { works } from "../Backend/models";
+
 
 //Récupérer dynamiquement les données des travaux via l’API
 export async function getProjects() {
@@ -21,29 +21,31 @@ export async function getProjects() {
 }
 getProjects();
 
-function CreateProject(works){
-    for (let i = 0; i < works.length; i++) {
-
-        const article = works[i];
-        // Récupération de l'élément du DOM qui accueillera les galeries
-        const sectiongallery = document.querySelector(".gallery");
-        // Création d’une balise dédiée à une image de la galerie
-        const figure = document.createElement("figure");
-        // Création des balises 
-        const imageElement = document.createElement("img");
-        imageElement.src = article.imageUrl;
-        const titleElement = document.createElement("h2");
-        titleElement.innerText = article.title;
-      
-        // On rattache la balise article a la section Fiches
-        sectiongallery.appendChild(figure);
-        // On rattache l’image à figure (la balise figure)
-        figure.appendChild(imageElement);
-        figure.appendChild(titleElement);
-       
-     }
+ async function Createworks(){
+    const work = await getProjects()
+      // Récupération de l'élément du DOM qui accueillera les galeries
+      const sectiongallery = document.querySelector(".gallery");
+      sectiongallery.innerHTML=""
+// console.log(sectiongallery)
+ work.forEach(element => {
+  
+    // Création d’une balise dédiée à une image de la galerie
+    const figure = document.createElement("figure");
+    const imageElement = document.createElement("img");
+    imageElement.src = element.imageUrl;
+    const titleElement = document.createElement("figcaption");
+    titleElement.innerText = element.title;
+    
+    // On rattache la balise article a la section Fiches
+    sectiongallery.appendChild(figure);
+    // On rattache l’image à figure (la balise figure)
+    figure.appendChild(imageElement);
+    figure.appendChild(titleElement);
+   });
 }
+Createworks()
 
-CreateProject(works)
+
+
 
 
