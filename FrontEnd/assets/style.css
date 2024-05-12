@@ -143,6 +143,9 @@ li:hover {
 	cursor: pointer;
 	height: 37px;
 	color: #1D6154;
+	border-width:1px;
+	width: 15%;
+	font-size: 16px;
 	
 	
   }
