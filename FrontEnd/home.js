@@ -1,5 +1,4 @@
 
-
 //Récupérer dynamiquement les données des travaux via l’API
 export async function getProjects() {
 
@@ -46,6 +45,29 @@ getProjects();
 Createworks()
 
 
+// 2. récuperations des tableau de categories//
 
+async function getcategory(){
+    const categories=await fetch("http://localhost:5678/api/categories");
+    return await categories.json();
+}
+getcategory()
 
+//creation des boutons //
 
+async function categoriesbouton() {
+    const categoriebouton = await getcategory();
+  
+  
+    for (let i = 0; i < categoriebouton.length; i++) {
+    const sectionfilters = document.querySelector(".filtres");
+      const boutton = categoriebouton[i];
+      //creations des boutons //
+      const btn = document.createElement("button");
+      btn.classList.add("button")
+      btn.textContent = boutton.name;
+      btn.id = boutton.id;
+      sectionfilters.appendChild(btn);
+    }
+  }
+categoriesbouton();

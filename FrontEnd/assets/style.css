@@ -125,6 +125,33 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+/*style pour les bouton filtres */
+.filtres {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+	gap:10px;
+	padding-bottom: 30px;
+
+  }
+	.button {
+	background-color: white;
+	padding: 5px 10px;
+	border-radius: 60px;
+	cursor: pointer;
+	height: 37px;
+	color: #1D6154;
+	
+	
+  }
+
+  .button:focus {
+	background-color: #1D6154;
+	color: white;
+  }
+
 .gallery {
 	width: 100%;
 	display: grid;
