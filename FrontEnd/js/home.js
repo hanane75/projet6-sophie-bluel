@@ -72,7 +72,7 @@ async function categoriesbouton() {
 categoriesbouton();
 
 // Trie par classe sur les boutons filtres
-async function displayByCategory() {
+async function GetByCategory() {
   const sectiongallery = document.querySelector(".gallery");
   const works = await getProjects();
   const buttons = document.querySelectorAll(".filtres button");
@@ -86,8 +86,12 @@ async function displayByCategory() {
           Createworks()
           // console.log(work);
         }
+        else{
+
+        }
       });*/
     });
   });
 }
-displayByCategory()
+
+GetByCategory()
