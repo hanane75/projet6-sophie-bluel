@@ -95,6 +95,11 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav li a {
+	text-decoration: none;
+	color: black;
+}
+
 li:hover {
 	color: #B1663C;
 }
@@ -136,7 +141,7 @@ li:hover {
 	padding-bottom: 30px;
 
   }
-	.button {
+	.filtres  button{
 	background-color: white;
 	padding: 5px 10px;
 	border-radius: 60px;
@@ -150,7 +155,7 @@ li:hover {
 	
   }
 
-  .button:focus {
+  .filtres button:focus {
 	background-color: #1D6154;
 	color: white;
   }
