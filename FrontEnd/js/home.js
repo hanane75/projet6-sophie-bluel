@@ -86,10 +86,6 @@ async function displayByCategory() {
           Createworks()
           // console.log(work);
         }
-        if (btnId == "0") {
-          Createworks();
-         
-        }
       });*/
     });
   });
