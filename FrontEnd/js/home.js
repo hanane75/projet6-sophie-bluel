@@ -1,3 +1,5 @@
+//variables 
+const sectiongallery = document.querySelector(".gallery");
 
 //Récupérer dynamiquement les données des travaux via l’API
 export async function getProjects() {
@@ -20,36 +22,41 @@ export async function getProjects() {
 }
 getProjects();
 
-async function Createworks(){
-  const work = await getProjects()
-    // Récupération de l'élément du DOM qui accueillera les galeries
-    const sectiongallery = document.querySelector(".gallery");
-    sectiongallery.innerHTML=""
-// console.log(sectiongallery)
-work.forEach(picture => {
-
+async function Createworks(galerie){   
   // Création d’une balise dédiée à une image de la galerie
   const figure = document.createElement("figure");
   const image = document.createElement("img");
-  image.src = picture.imageUrl;
+  image.src = galerie.imageUrl;
   const title = document.createElement("figcaption");
-  title.innerText = picture.title;
-  
-  // On rattache la balise article a la section Fiches
+  title.innerText = galerie.title;
   sectiongallery.appendChild(figure);
   // On rattache l’image à figure (la balise figure)
   figure.appendChild(image);
   figure.appendChild(title);
- });
-}
-Createworks()
+ };
+
+ //affichages des works dans le DOM 
+
+ async function displayGaleries() {
+  const gallery = await getProjects();
+  //console.log(gallery);
+  sectiongallery.innerHTML="";
+  gallery.forEach(galerie => {
+    Createworks(galerie);
+    
+  });
+ }
+ displayGaleries();
+
 
 
 // 2. récuperations des tableau de categories//
 
 async function getcategory(){
   const categories=await fetch("http://localhost:5678/api/categories");
-  return await categories.json();
+  const category = await categories.json();
+  //console.log(category);
+  return category;
 }
 getcategory()
 
@@ -57,41 +64,44 @@ getcategory()
 
 async function categoriesbouton() {
   const categoriebouton = await getcategory();
-
   for (let i = 0; i < categoriebouton.length; i++) {
   const sectionfilters = document.querySelector(".filtres");
     const boutton = categoriebouton[i];
+    //console.log(boutton);
     //creations des boutons //
     const btn = document.createElement("button");
-    btn.classList.add("button")
     btn.textContent = boutton.name;
     btn.id = boutton.id;
+    btn.type="button";
     sectionfilters.appendChild(btn);
   }
+  // Appel à GetByCategory() une fois que les boutons sont créés
+  GetByCategory();
 }
 categoriesbouton();
 
 // Trie par classe sur les boutons filtres
 async function GetByCategory() {
-  const sectiongallery = document.querySelector(".gallery");
   const works = await getProjects();
   const buttons = document.querySelectorAll(".filtres button");
-  buttons.forEach((button) => {
-    button.addEventListener("click", (e) => {
+  console.log(buttons);
+    buttons.forEach((btnn) => {
+    btnn.addEventListener("click", (e) => {
       const btnId = e.target.id;
       console.log(btnId);
-     /*sectiongallery.innerHTML = "";
-      works.forEach((work) => {
-        if (btnId == work.categoryId) {
-          Createworks()
-          // console.log(work);
+      
+     sectiongallery.innerHTML = "";
+     
+        if (btnId !== "0") {
+          const worksTriCategory = works.filter((galerie) => {
+            return galerie.categoryId == btnId;
+          });
+          worksTriCategory.forEach((galerie) => {
+            Createworks(galerie);
+          });
+        } else {
+          displayGaleries();
         }
-        else{
-
-        }
-      });*/
     });
   });
 }
-
-GetByCategory()
