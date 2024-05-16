@@ -98,9 +98,12 @@ nav li {
 nav li a {
 	text-decoration: none;
 	color: black;
+	
 }
-
 li:hover {
+	color: #B1663C;
+}
+li a:hover {
 	color: #B1663C;
 }
 #introduction {
