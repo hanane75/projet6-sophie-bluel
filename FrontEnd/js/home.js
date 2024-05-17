@@ -21,7 +21,10 @@ export async function getProjects() {
 
 }
 getProjects();
-
+/**
+ * 
+ * @param {*} galerie 
+ */
 async function Createworks(galerie){   
   // Création d’une balise dédiée à une image de la galerie
   const figure = document.createElement("figure");
@@ -80,7 +83,10 @@ async function categoriesbouton() {
 }
 categoriesbouton();
 
-// Trie par classe sur les boutons filtres
+// Trie par classe sur les boutons filtres 
+/**
+ * 
+ */
 async function GetByCategory() {
   const works = await getProjects();
   const buttons = document.querySelectorAll(".filtres button");
