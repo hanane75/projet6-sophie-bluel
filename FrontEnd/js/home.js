@@ -117,16 +117,49 @@ async function GetByCategory() {
 const token = window.sessionStorage.getItem("token");
 const user = window.sessionStorage.getItem("userId");
 const logOut = document.getElementById("login-link");
-
+const sectionPortfolio = document.querySelector("#portfolio");
+const title = document.querySelector("#portfolio h2");
 function logginAdmin() {
   if (user) {
     // Modifications si L'utilisateur est connecté
     //console.log("L'utilisateur est connecté");
     logOut.textContent = "logout";
     sectionfilters.style = "display:none";
+    // Créer un élément bouton
+    const editButton = document.createElement("button");
+    editButton.className = "edit-button";
+    // Créer une icône Font Awesome
+    const icon = document.createElement("i");
+    icon.className = "fa-regular fa-pen-to-square icon";
+
+    // Créer le texte "modifier"
+    const buttonText = document.createElement("span");
+    buttonText.textContent = "modifier";
+
+    // Ajouter l'icône et le texte au bouton
+    editButton.appendChild(icon);
+    editButton.appendChild(buttonText);
+
+    // Ajouter le bouton juste après l'élément h2
+    title.insertAdjacentElement("afterend", editButton);
   } else {
     // L'utilisateur n'est pas connecté
-   
+    logoutAdmin();
   }
 }
 logginAdmin();
+
+function logoutAdmin() {
+  logOut.addEventListener("click", () => {
+    if (user) {
+      window.sessionStorage.setItem("token", "");
+      logOut.textContent = "login";
+      window.sessionStorage.setItem("userId", "");
+      window.location.href = "index.html";
+    } else {
+      //renvoi sur page conexion
+      window.location.href = "login.html";
+    }
+  });
+}
+logoutAdmin();
