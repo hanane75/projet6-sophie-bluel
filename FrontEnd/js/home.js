@@ -1,3 +1,4 @@
+
 //variables 
 const sectiongallery = document.querySelector(".gallery");
 const sectionfilters = document.querySelector(".filtres");
@@ -163,3 +164,4 @@ function logoutAdmin() {
   });
 }
 logoutAdmin();
+
