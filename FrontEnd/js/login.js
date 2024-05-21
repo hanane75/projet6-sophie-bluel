@@ -2,14 +2,17 @@
 const form = document.querySelector("form");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
+const logOut = document.getElementById("login-link");
 
 
 /********Ecouteur d'évènement du Form de conexion***********/
 // recupération de l'email et du password via les inputs
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit",async (e) => {
     e.preventDefault();
+    resetFormStyles();
     const userEmail = email.value;
     const userPassword = password.value;
+
      const login ={
         email : userEmail,
         password : userPassword,
@@ -29,7 +32,7 @@ form.addEventListener("submit", (e) => {
 
     // recupération de la réponse de la base de donnée
     .then((response) => {
-        console.log(response);
+       // console.log(response);
         if (!response.ok) {
           email.style.border = "2px solid #FF0000";
           password.style.border = "2px solid #FF0000";
@@ -49,12 +52,21 @@ form.addEventListener("submit", (e) => {
     //console.log(userToken);
     window.sessionStorage.setItem("token", userToken);
     window.sessionStorage.setItem("userId", userId);
-    //window.location.href = "index.html";
+    window.location.href = "index.html";
   })
   .catch((error) => {
     console.error("Une erreur est survenue : ", error);
   });
 
+  
+  function resetFormStyles() {
+    email.style.border = "none";
+    password.style.border = "none";
+    const errorLogin = document.querySelector("p");
+    if (errorLogin) {
+      errorLogin.textContent = "";
+    }
+  }
 });
 
 

@@ -1,6 +1,6 @@
 //variables 
 const sectiongallery = document.querySelector(".gallery");
-
+const sectionfilters = document.querySelector(".filtres");
 //Récupérer dynamiquement les données des travaux via l’API
 export async function getProjects() {
 
@@ -111,3 +111,22 @@ async function GetByCategory() {
     });
   });
 }
+
+/*****Partie ou l'utilisateur et conecté*****/
+// Variables pour la partie conexion
+const token = window.sessionStorage.getItem("token");
+const user = window.sessionStorage.getItem("userId");
+const logOut = document.getElementById("login-link");
+
+function logginAdmin() {
+  if (user) {
+    // Modifications si L'utilisateur est connecté
+    //console.log("L'utilisateur est connecté");
+    logOut.textContent = "logout";
+    sectionfilters.style = "display:none";
+  } else {
+    // L'utilisateur n'est pas connecté
+   
+  }
+}
+logginAdmin();
