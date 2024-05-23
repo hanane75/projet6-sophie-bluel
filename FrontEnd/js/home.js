@@ -120,6 +120,8 @@ const user = window.sessionStorage.getItem("userId");
 const logOut = document.getElementById("login-link");
 const sectionPortfolio = document.querySelector("#portfolio");
 const title = document.querySelector("#portfolio h2");
+const modal = document.getElementById("myModal");
+const modalContent = modal.querySelector(".modal-content");
 function logginAdmin() {
   if (user) {
     // Modifications si L'utilisateur est connecté
@@ -129,6 +131,29 @@ function logginAdmin() {
     // Créer un élément bouton
     const editButton = document.createElement("button");
     editButton.className = "edit-button";
+    /*modal****/
+
+ // Sélectionner la modale et le bouton de fermeture
+ const modal = document.getElementById("myModal");
+ const closeButton = modal.querySelector(".close");
+
+ // Ajouter un événement de clic au bouton "modifier"
+ editButton.addEventListener("click", function() {
+     modal.style.display = "block";
+ });
+
+ 
+ // Ajouter un événement de clic au bouton de fermeture
+ closeButton.addEventListener("click", function() {
+  modal.style.display = "none";
+});
+
+// Fermer la modale si l'utilisateur clique en dehors de celle-ci
+window.addEventListener("click", function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+});
     // Créer une icône Font Awesome
     const icon = document.createElement("i");
     icon.className = "fa-regular fa-pen-to-square icon";
@@ -164,4 +189,5 @@ function logoutAdmin() {
   });
 }
 logoutAdmin();
+
 
