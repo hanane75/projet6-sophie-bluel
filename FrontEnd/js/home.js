@@ -199,7 +199,7 @@ function displayWorksModal() {
     works.forEach((work) => {
       createWorkModal(work);
     });
-    //deleteWork();
+    deleteWork();
   });
 }
 displayWorksModal();
@@ -218,4 +218,60 @@ function createWorkModal(work) {
   figure.appendChild(span);
   modalGallery.appendChild(figure);
 }
+
+//Supression des works grace a la méthode DELETE & au Token user depuis la poubelle de la modale
+//Objet de paramétrage pour requette DELETE avec token
+const deleteWorkID = {
+  method: "DELETE",
+  headers: {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  },
+  mode: "cors",
+  credentials: "same-origin",
+};
+
+function deleteWork() {
+  const trashs = document.querySelectorAll(".fa-trash-can");
+ // console.log(trashs); // Vérifiez que les éléments sont bien sélectionnés
+
+  trashs.forEach(trash => {
+    trash.addEventListener("click", (e) => {
+      const workID = trash.id; // Assurez-vous que l'ID est correct
+      fetch(`http://localhost:5678/api/works/${workID}`, deleteWorkID)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(() => {
+          // Suppression de l'élément du DOM après suppression réussie
+          const workItem = trash.closest('li');
+          if (workItem) {
+            workItem.remove();
+          }
+          // Mise à jour de la modal ou de la galerie principale
+          displayWorksModal();
+        })
+        .catch(error => {
+          console.error('Il y a eu un problème avec la requête fetch:', error);
+        });
+    });
+  });
+}
+
+// Appel de la fonction deleteWork pour ajouter les écouteurs d'événements
+deleteWork();
+
+//fonction d'affichage au click sur btn:"ajouter-photo" de la modalAddWorks
+function displayModalAddWorks() {
+  const buttonAddPhoto = document.querySelector(".container-button button");
+  const modalAddWorks = document.querySelector(".modalAddWorks");
+  buttonAddPhoto.addEventListener("click", () => {
+    modal.style.display = "none";
+    modalAddWorks.style.display = "flex";
+  });
+}
+displayModalAddWorks();
 

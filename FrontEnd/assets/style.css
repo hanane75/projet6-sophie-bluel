@@ -2,7 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-
+@import url("stylemodal.css");
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -240,6 +240,13 @@ font-size: 1.5rem;
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+.container-gallery-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+    width: 100%;
 }
 .modalGallery {
 	width: 100%;
