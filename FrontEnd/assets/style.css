@@ -167,16 +167,16 @@ li a:hover {
 
 /* Styles pour la modale */
 .modal {
-    display: none; /* Masquer la modale par défaut */
+	display: none; /* Masquer la modale par défaut */
     position: fixed; /* Rester en place (fixé) */
     z-index: 1; /* Au-dessus de tout autre contenu */
-	left: 25%;
-    top: 45%;
-    width: 650px; /* Largeur totale */
-    height: 688px; /* Hauteur totale */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largeur totale */
+    height: 100%; /* Hauteur totale */
     overflow: auto; /* Activer le défilement si nécessaire */
-    background-color: hsl(0, 0%, 100%); /* Couleur de fond */
-    /*background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond avec opacité */
+    background-color: rgb(0, 0, 0); /* Couleur de fond */
+    background-color: rgba(0, 0, 0, 0.4); /* Couleur de fond avec opacité */
 }
 
 .modal-content {
@@ -186,14 +186,45 @@ li a:hover {
 	display: flex;
     align-items: center;
     flex-direction: column;
-    height: 80%;
-    width: 80%;
+	width: 32%;
+	height: 66%;
+	position: relative;
+	min-height: 500px;
+	min-width: 300px;
     gap: 20px;
+	justify-content: space-around;
 }
 .modal-content h3{
 font-weight: bold;
 font-size: 1.5rem;
 }
+
+.container-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20%;
+	width: 100%;
+	border-top: 1px solid gray;
+}
+.container-button .buttons{
+	
+		background-color: white;
+		padding: 5px 10px;
+		border-radius: 60px;
+		cursor: pointer;
+		height: 37px;
+		color: #1D6154;
+		border-width:1px;
+		width: 150px;
+		font-size: 14px;
+}
+
+.container-button .buttons:focus {
+ background-color: #1D6154;
+ color: white;
+}
+
 .close {
 	color: black;
     float: right;
@@ -210,7 +241,44 @@ font-size: 1.5rem;
     text-decoration: none;
     cursor: pointer;
 }
+.modalGallery {
+	width: 100%;
+	height: 50%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 40% 40% 40%;
+	grid-column-gap: 10px;
+	grid-row-gap: 30px;
+}
+.modalGallery  figure {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
 
+.modalGallery figure span {
+	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: black;
+	height: 18px;
+	width: 18px;
+	border-radius: 2px;
+}
+
+.fa-trash-can {
+	color: white;
+	font-size: 0.6rem;
+	cursor: pointer;
+  }
+ .modalGallery img {
+	width: 100%;
+	height: 100%;
+  }
 /*style pour les bouton filtres */
 .filtres {
 	display: flex;

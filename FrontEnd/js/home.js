@@ -189,5 +189,33 @@ function logoutAdmin() {
   });
 }
 logoutAdmin();
-
+const modalGallery=document.querySelector(".modalGallery")
+// récupération des works & appel de la fonction de création de works dans la gallery de la modal
+function displayWorksModal() {
+  modalGallery.innerHTML = "";
+  getProjects().then((works) => {
+    //Boucle qui parcours  nos works
+    // console.log(works);
+    works.forEach((work) => {
+      createWorkModal(work);
+    });
+    //deleteWork();
+  });
+}
+displayWorksModal();
+// création des balises et injection des donnés a partir du fetchWorks
+function createWorkModal(work) {
+  const figure = document.createElement("figure");
+  const img = document.createElement("img");
+  const span = document.createElement("span")
+  const trash = document.createElement("i");
+  trash.classList.add("fa-solid", "fa-trash-can");
+  trash.id = work.id;
+  img.src = work.imageUrl;
+  img.alt = work.title;
+  span.appendChild(trash)
+  figure.appendChild(img);
+  figure.appendChild(span);
+  modalGallery.appendChild(figure);
+}
 
