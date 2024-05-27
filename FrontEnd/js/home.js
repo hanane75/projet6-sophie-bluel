@@ -2,6 +2,12 @@
 //variables 
 const sectiongallery = document.querySelector(".gallery");
 const sectionfilters = document.querySelector(".filtres");
+const adminText = "Mode édition";
+const adminLogo = `<i class="fa-regular fa-pen-to-square"></i>`;
+const adminConexionUP = `<div class="admin-edit">
+<p>${adminLogo}${adminText}</p>
+</div>`;
+const body = document.querySelector("body");
 //Récupérer dynamiquement les données des travaux via l’API
 export async function getProjects() {
 
@@ -127,6 +133,7 @@ function logginAdmin() {
     // Modifications si L'utilisateur est connecté
     //console.log("L'utilisateur est connecté");
     logOut.textContent = "logout";
+    document.body.insertAdjacentHTML("afterbegin", adminConexionUP);
     sectionfilters.style = "display:none";
     // Créer un élément bouton
     const editButton = document.createElement("button");
@@ -203,6 +210,7 @@ function displayWorksModal() {
   });
 }
 displayWorksModal();
+
 // création des balises et injection des donnés a partir du fetchWorks
 function createWorkModal(work) {
   const figure = document.createElement("figure");
@@ -237,6 +245,7 @@ function deleteWork() {
 
   trashs.forEach(trash => {
     trash.addEventListener("click", (e) => {
+      e.preventDefault(); // Empêche le rechargement de la page si l'événement est lié à un formulaire ou un lien
       const workID = trash.id; // Assurez-vous que l'ID est correct
       fetch(`http://localhost:5678/api/works/${workID}`, deleteWorkID)
         .then(response => {
@@ -260,18 +269,144 @@ function deleteWork() {
     });
   });
 }
-
 // Appel de la fonction deleteWork pour ajouter les écouteurs d'événements
 deleteWork();
 
 //fonction d'affichage au click sur btn:"ajouter-photo" de la modalAddWorks
-function displayModalAddWorks() {
-  const buttonAddPhoto = document.querySelector(".container-button button");
-  const modalAddWorks = document.querySelector(".modalAddWorks");
-  buttonAddPhoto.addEventListener("click", () => {
-    modal.style.display = "none";
-    modalAddWorks.style.display = "flex";
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  const closeModalButton = document.querySelector('.close');
+  const addPhotoButton = document.getElementById('addPhotoButton');
+  const xmarkButton = document.querySelector('.xmark');
+  
+  const modal = document.getElementById('myModal');
+  const gallerySection = document.querySelector('.container-gallery-button');
+  const addWorksSection = document.querySelector('.modalAddWorks');
+
+
+  closeModalButton.addEventListener('click', () => {
+      modal.style.display = 'none';
+  });
+
+  addPhotoButton.addEventListener('click', () => {
+      gallerySection.style.display = 'none';
+      addWorksSection.style.display = 'flex';
+  });
+
+ 
+
+  xmarkButton.addEventListener('click', () => {
+      modal.style.display = 'none';
+  });
+});
+  //Variables Pour le form
+const formAddWorks = document.querySelector("#formAddWorks");
+const labelFile = document.querySelector("#formAddWorks label")
+const paragraphFile = document.querySelector("#formAddWorks p")
+const inputTitle = document.querySelector("#title");
+const inputCategory = document.querySelector("#categoryInput");
+const inputFile = document.querySelector("#file");
+const previewImage = document.getElementById("previewImage");
+const arrowLeftButton = document.querySelector('.arrow-left');
+const gallerySection = document.querySelector('.container-gallery-button');
+const addWorksSection = document.querySelector('.modalAddWorks');
+// Retour sur modalPortfolio depuis la flèche de la modalAddWorks
+function returnToModalPortfolio() {
+  arrowLeftButton.addEventListener('click', () => {
+    gallerySection.style.display = 'flex';
+    addWorksSection.style.display = 'none';
+    //Supréssion de la prewiew a clik sur retour dans la modale
+    inputFile.value = "";
+    previewImage.style.display = "none";
+    console.log("coucou");
+
+});
+}
+returnToModalPortfolio();
+//Function d'ajout d'un nouveau projet
+function addWorks() {
+  formAddWorks.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Récupération des Valeurs du Formulaire
+    const formData = new FormData(formAddWorks);
+    fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur lors de l'envoi du fichier");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // console.log("Fichier envoyé avec succès :", data);
+        displayWorksModal();
+        displayWorksGallery();
+        formAddWorks.reset();
+        modalPortfolio.style.display = "flex";
+        modalAddWorks.style.display = "none";
+        previewImage.style.display = "none";
+      })
+      .catch((error) => {
+        console.error("Erreur :", error);
+      });
+  });
+
+}
+addWorks();
+
+//Fonction qui génère les catégorie dynamiquement pour la modale
+async function displayCategoryModal() {
+  const select = document.querySelector("form select");
+  const categorys = await getcategory();
+  categorys.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.name;
+    select.appendChild(option);
   });
 }
-displayModalAddWorks();
 
+displayCategoryModal() ;
+//fonction prévisualisation de l'image
+function prevImg() {
+  inputFile.addEventListener("change", () => {
+    const file = inputFile.files[0];
+    // console.log(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        previewImage.src = e.target.result;
+        previewImage.style.display = "block";
+        // labelFile.style.display ="none"
+        // paragraphFile.style.display ="none"
+      };
+      reader.readAsDataURL(file);
+    } else {
+      previewImage.style.display = "none";
+    }
+  });
+}
+
+prevImg();
+// fontion qui vérifie si tout les inputs sont remplis
+function verifFormCompleted() {
+  const buttonValidForm = document.querySelector(
+    ".container-button-add-work  button"
+  );
+  formAddWorks.addEventListener("input", () => {
+    if (!inputTitle.value == "" && !inputFile.files[0] == "") {
+      buttonValidForm.classList.remove("button-add-work");
+      buttonValidForm.classList.add("buttonValidForm");
+    } else {
+      buttonValidForm.classList.remove("buttonValidForm");
+      buttonValidForm.classList.add("button-add-work");
+    }
+  });
+}
+verifFormCompleted();

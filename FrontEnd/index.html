@@ -39,7 +39,40 @@
 	<section id="portfolio">
 		
             <h2>Mes Projets</h2>
-       
+        <!-- Modale -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="container-gallery-button">
+            <h3>Galerie photo</h3>
+            <div class="modalGallery"></div>
+            <div class="container-button">
+                <button id="addPhotoButton" class="buttons">Ajouter une photo</button>
+            </div>
+        </div>
+        <div class="modalAddWorks">
+            <span class="arrow-left"><i class="fa-solid fa-arrow-left"></i></span>
+            <span class="xmark"><i class="fa-solid fa-xmark"></i></span>
+            <h3>Ajout photo</h3>
+            <form id="formAddWorks">
+                <div class="containerAddPhoto">
+                    <i class="fa-regular fa-image"></i>
+                    <label for="file" class="labelFile">+ Ajouter photo</label>
+                    <p>jpg,png : 4mo max</p>
+                    <input type="file" name="image" id="file" accept="image/jpg, image/png" required>
+                    <img id="previewImage" src="#" alt="Aperçu de l'image" style="display: none;">
+                </div>
+                <label for="title">Titre</label>
+                <input type="text" name="title" id="title" required>
+                <label for="categoryInput">Catégorie</label>
+                <select id="categoryInput" name="category" required></select>
+                <div class="container-button-add-work">
+                    <button type="submit" class="button-add-work">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 		
 		
 		<div class ="filtres">
@@ -106,43 +139,7 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
-	 <!-- Modale -->
-	 <div id="myModal" class="modal">
-        <div class="modal-content">
-			
-            <span class="close">&times;</span>
-			<h3>Galerie photo</h3>
-			<div class="container-gallery-button">
-				<div class="modalGallery">
-				</div>
-				<div class="container-button ">
-					<button class="buttons">Ajouter une photo</button>
-				</div>
-			</div>
-        </div>
-		<section class="modalAddWorks">
-			<span class="arrow-left"><i class="fa-solid fa-arrow-left"></i></span>
-			<span class="xmark"><i class="fa-solid fa-xmark"></i></span>
-			<h3>Ajout photo</h3>
-			<form id="formAddWorks">
-				<div class="containerAddPhoto">
-					<i class="fa-regular fa-image"></i>
-					<label for="file" class="labelFile">+ Ajouter photo</label>
-					<p>jpg,png : 4mo max</p>
-					<input type="file" name="image" id="file" accept="image/jpg, image/png" required>
-					<img id="previewImage" src="#" alt="Aperçu de l'image">
-				</div>
-				<label for="title">Titre</label>
-				<input type="text" name="title" id="title" required>
-				<label for="categoryInput">Catégorie</label>
-				<select id="categoryInput" name="category" required>
-				</select>
-				<div class="container-button-add-work ">
-					<button type="submit" class="button-add-work">Valider</button>
-				</div>
-			</form>
-		</section>
-    </div>
+	
 	
 </main>
 
